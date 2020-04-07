@@ -1,0 +1,103 @@
+@{
+    ViewBag.Title = "Front End";
+    Layout = "~/Views/Shared/Base/_Layout.cshtml";
+}
+
+<div class="ui grid middle aligned center aligned">
+    <div class="row">
+        <div class="nine wide computer sixteen wide tablet sixteen wide mobile column">
+            <div class="ui form">
+                <form>
+                    <div class="row one column">
+                        <div class="column">
+
+                            <div class="field required">
+                                <label>Nome</label>
+                                <div class="ui left icon input">
+                                    <i class="user icon"></i>
+                                    <input type="text" maxlength="100" name="Name" id="Name" placeholder="Nome" class="small" value="" data-validate="name" onKeyup="javascript:mycopytext(this);">
+                                    <label id="vName"></label>
+                                </div>
+                            </div>
+                            <div class="field required">
+                                <label>E-mail</label>
+                                <div class="ui left icon input">
+                                    <i class="mail icon"></i>
+                                    <input id="email" type="text" maxlength="100" name="Email" class="small" placeholder="E-mail" value="" data-validate="email" onKeyup="javascript:mycopytext(this);">
+                                    <label id="vEmail"></label>
+                                </div>
+                            </div>
+
+
+                            <div class="three fields">
+                                <div class="field required">
+                                    <label>Telefone</label>
+                                    <div class="ui left icon input">
+                                        <i class="phone icon"></i>
+                                        <input type="text" name="Phone" id="Phone" placeholder="(00) 00000-0000" class="masked mask_phone small" data-validate="phone" onKeyup="javascript:mycopytext(this);">
+                                        <label id="vPhone"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="div two fields">
+
+                                <div class="field required">
+                                    <label>Assunto</label>
+                                    <div class="ui left icon input">
+                                        <i class="mail icon"></i>
+                                        <input type="text" maxlength="100" id="Subject" name="Subject" placeholder="Assunto" value="" data-validate="assunto" onKeyup="javascript:mycopytext(this);">
+                                        <label id="vSubject"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field required">
+                                <label>Mensagem</label>
+                                <textarea maxlength="6000" name="Message" id="Message" data-validate="message" onKeyup="javascript:mycopytext(this);" cols="50"></textarea>
+                                <label id="vMessage"></label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="ui submit button" onclick="javascript:garatirSessao();">Enviar dados</div>
+                    <div class="ui error message"></div>
+
+                </form>
+                <br><br>
+                <div class="ui button" onclick="javascript:sessionStorageRecupera();">RECUPERAR VALOR DA sessionStorage após clique do Enviar</div>
+                <br><br><br><br><br><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section custom_js {
+    <script>
+
+        function mycopytext(campo) {
+            sessionStorage.setItem('s' + campo.name, campo.value);
+            document.getElementById("v" + campo.name).innerHTML = campo.value;
+        }
+
+        function garatirSessao() {
+            sessionStorage.setItem('sName', document.getElementByTagName('Name').value);
+            sessionStorage.setItem('sEmail', document.getElementByTagName('Email').value);
+            sessionStorage.setItem('sPhone', document.getElementByTagName('Phone').value);
+            sessionStorage.setItem('sSubject', document.getElementByTagName('Subject').value);
+            sessionStorage.setItem('sMessage', document.getElementByTagName('Message').value);
+
+
+        }
+
+        function sessionStorageRecupera() {
+           
+            document.getElementById('Name').value = sessionStorage.getItem('sName');
+            document.getElementById('email').value = sessionStorage.getItem('sEmail');
+            document.getElementById('Phone').value = sessionStorage.getItem('sPhone');
+            document.getElementById('Subject').value = sessionStorage.getItem('sSubject');
+            document.getElementById('Message').value = sessionStorage.getItem('sMessage');
+
+        }
+
+
+    </script>
+}
